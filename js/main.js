@@ -1,6 +1,10 @@
 const PHOTO_AMOUNT = 25;
 const RANGE = 3;
 const COMMENT_AMOUNT = PHOTO_AMOUNT * RANGE;
+const AVATAR_ID_START = 1;
+const AVATAR_ID_END = 6;
+const LIKES_MIN = 15;
+const LIKES_MAX = 200;
 
 const getRandomInt = (a, b) => {
   if (a >= 0 && b >= 0) {
@@ -88,12 +92,12 @@ const createComments = (amount) => {
   const comments = [];
 
   for(let i = 0; i < amount; i++) {
-    comments[i] = {
+    comments.push({
       id: commentId[i],
-      avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+      avatar: `img/avatar-${getRandomInt(AVATAR_ID_START, AVATAR_ID_END)}.svg`,
       message: getRandomElement(messages),
       name: `${getRandomElement(firstNames)} ${getRandomElement(lastNames)}`
-    };
+    });
   }
 
   return comments;
@@ -123,13 +127,13 @@ const createPhotoInfo = (amount) => {
     const startComment = RANGE * i;
     const endComment = startComment + RANGE;
 
-    photoInfo[i] = {
+    photoInfo.push({
       id: photoIdList[i],
       url: `photos/${photoIdList[i]}.jpg`,
       description: getRandomElement(text),
-      likes: getRandomInt(15, 200),
+      likes: getRandomInt(LIKES_MIN, LIKES_MAX),
       comments: photoComments.slice(startComment, endComment)
-    };
+    });
   }
 
   return photoInfo;
