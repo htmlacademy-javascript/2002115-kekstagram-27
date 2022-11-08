@@ -1,3 +1,7 @@
+const PHOTO_AMOUNT = 25;
+const RANGE = 3;
+const COMMENT_AMOUNT = PHOTO_AMOUNT * RANGE;
+
 const getRandomInt = (a, b) => {
   if (a >= 0 && b >= 0) {
     const min = Math.min(a, b);
@@ -31,11 +35,7 @@ const getCommentIdList = function(amount) {
   return commentIdList;
 };
 
-const photoAmount = 25;
-const range = 3;
-const commentAmount = photoAmount * range;
-
-const commentId = getCommentIdList(commentAmount);
+const commentId = getCommentIdList(COMMENT_AMOUNT);
 
 const messages = [
   'Всё отлично!',
@@ -101,9 +101,9 @@ const createComments = function(amount) {
   return comments;
 };
 
-const photoComments = createComments(commentAmount);
+const photoComments = createComments(COMMENT_AMOUNT);
 
-const photoIdList = Array.from({length: photoAmount}, (element, index) => index + 1);
+const photoIdList = Array.from({length: PHOTO_AMOUNT}, (element, index) => index + 1);
 
 const text = [
   'Утренний кофе в тёплой компании',
@@ -122,8 +122,8 @@ const createPhotoInfo = function (amount) {
   const photoInfo = [];
 
   for(let i = 0; i < amount; i++) {
-    const startComment = range * i;
-    const endComment = startComment + range;
+    const startComment = RANGE * i;
+    const endComment = startComment + RANGE;
 
     photoInfo[i] = {
       id: photoIdList[i],
@@ -137,4 +137,4 @@ const createPhotoInfo = function (amount) {
   return photoInfo;
 };
 
-createPhotoInfo(photoAmount);
+createPhotoInfo(PHOTO_AMOUNT);
