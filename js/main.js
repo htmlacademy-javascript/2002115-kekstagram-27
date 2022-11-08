@@ -15,11 +15,9 @@ const getRandomInt = (a, b) => {
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 checkStringLength('Очень длинная строка', 10);
 
-const getRandomElement = function(array) {
-  return array[getRandomInt(0, array.length - 1)];
-};
+const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
 
-const getCommentIdList = function(amount) {
+const getCommentIdList = (amount) => {
   const commentIdList = [];
 
   for(let i = 0; i < amount; i++) {
@@ -86,7 +84,7 @@ const lastNames = [
   'Фейнман',
 ];
 
-const createComments = function(amount) {
+const createComments = (amount) => {
   const comments = [];
 
   for(let i = 0; i < amount; i++) {
@@ -118,7 +116,7 @@ const text = [
   'Увлекательный день',
 ];
 
-const createPhotoInfo = function (amount) {
+const createPhotoInfo = (amount) => {
   const photoInfo = [];
 
   for(let i = 0; i < amount; i++) {
