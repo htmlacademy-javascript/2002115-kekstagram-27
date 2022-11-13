@@ -125,4 +125,6 @@ const createPhotoInfo = (amount) => {
   return photoInfo;
 };
 
-createPhotoInfo(PHOTO_AMOUNT);
+const photos = createPhotoInfo(PHOTO_AMOUNT);
+
+export {photos};
