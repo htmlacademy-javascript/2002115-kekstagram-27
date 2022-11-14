@@ -106,14 +106,14 @@ const photoComments = createComments(COMMENT_AMOUNT);
 
 const photoIdList = Array.from({length: PHOTO_AMOUNT}, (element, index) => index + 1);
 
-const createPhotoInfo = () => {
-  const photoInfo = [];
+const createPhotos = () => {
+  const photos = [];
 
   for(let i = 0; i < PHOTO_AMOUNT; i++) {
     const startComment = RANGE * i;
     const endComment = startComment + RANGE;
 
-    photoInfo.push({
+    photos.push({
       id: photoIdList[i],
       url: `photos/${photoIdList[i]}.jpg`,
       description: getRandomElement(TEXT),
@@ -122,7 +122,7 @@ const createPhotoInfo = () => {
     });
   }
 
-  return photoInfo;
+  return photos;
 };
 
-export {createPhotoInfo};
+export {createPhotos};
