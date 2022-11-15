@@ -3,7 +3,7 @@ import './util.js';
 import './previews.js';
 import {PHOTO_AMOUNT, createPhotos} from './data.js';
 import {createPreviews} from './previews.js';
-import {getSocialCommentsList, showPhoto} from './photos.js';
+import {showPhoto} from './photos.js';
 
 const photos = createPhotos(PHOTO_AMOUNT);
 const previews = createPreviews(photos);
