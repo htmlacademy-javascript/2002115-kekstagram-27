@@ -1,7 +1,12 @@
 import './data.js';
 import './util.js';
 import './previews.js';
-import {createPhotos} from './data.js';
+import {PHOTO_AMOUNT, createPhotos} from './data.js';
 import {createPreviews} from './previews.js';
+import {getSocialCommentsList, showPhoto} from './photos.js';
 
-createPreviews(createPhotos());
+const photos = createPhotos(PHOTO_AMOUNT);
+const previews = createPreviews(photos);
+
+showPhoto(previews, photos);
+

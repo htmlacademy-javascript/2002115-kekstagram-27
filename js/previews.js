@@ -1,9 +1,9 @@
 const picturesContainer = document.querySelector('.pictures');
 const previewTemplate = document.querySelector('#picture').content;
 
-const createPreviews = (pictures) => {
+const createPreviews = (photos) => {
   const previewContainer = document.createDocumentFragment();
-  pictures.forEach(({url, likes, comments}) => {
+  photos.forEach(({url, likes, comments}) => {
     const preview = previewTemplate.cloneNode(true);
     preview.querySelector('.picture__img').src = url;
     preview.querySelector('.picture__likes').textContent = likes;
@@ -12,6 +12,8 @@ const createPreviews = (pictures) => {
   });
 
   picturesContainer.append(previewContainer);
+
+  return Array.from(picturesContainer.querySelectorAll('.picture'));
 };
 
 export {createPreviews};
