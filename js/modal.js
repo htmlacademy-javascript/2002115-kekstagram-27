@@ -35,7 +35,7 @@ const onCloseButtonClick = () => {
 };
 
 const onPhotoModalKeyDown = (evt) => {
-  if(isEscapeKey) {
+  if(isEscapeKey(evt)) {
     closePhotoModal();
   }
 };
