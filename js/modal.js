@@ -32,11 +32,7 @@ const closePhotoModal = () => {
   document.removeEventListener('keydown', onPhotoModalKeyDown);
 };
 
-const onCloseButtonClick = () => {
-    closePhotoModal();
-};
-
-const onPhotoModalKeyDown = (evt) => {
+const onPhotoModalKeyDown = () => {
   if(isEscapeKey) {
     closePhotoModal();
   }
