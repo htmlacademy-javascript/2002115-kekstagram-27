@@ -106,10 +106,10 @@ const photoComments = createComments(COMMENT_AMOUNT);
 
 const photoIdList = Array.from({length: PHOTO_AMOUNT}, (element, index) => index + 1);
 
-const createPhotos = () => {
+const createPhotos = (amount) => {
   const photos = [];
 
-  for(let i = 0; i < PHOTO_AMOUNT; i++) {
+  for(let i = 0; i < amount; i++) {
     const startComment = RANGE * i;
     const endComment = startComment + RANGE;
 
@@ -125,4 +125,4 @@ const createPhotos = () => {
   return photos;
 };
 
-export {createPhotos};
+export {PHOTO_AMOUNT, createPhotos};
