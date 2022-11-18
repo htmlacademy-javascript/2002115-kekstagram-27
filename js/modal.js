@@ -31,7 +31,7 @@ const closePhotoModal = () => {
 };
 
 const onCloseButtonClick = () => {
-    closePhotoModal();
+  closePhotoModal();
 };
 
 const onPhotoModalKeyDown = (evt) => {
