@@ -25,16 +25,23 @@ const createPhotoModal = ({url, likes, comments, description}) => {
   renderSocialCommentsList(comments);
 };
 
-const closePhotoModal = () => {
+const closePhotoModal = (evt) => {
+  evt.preventDefault();
   photoModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   // eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onPhotoModalKeyDown);
+  // eslint-disable-next-line no-use-before-define
+  closeModalButton.addEventListener('click', onCloseButton);
 };
 
-const onPhotoModalKeyDown = () => {
-  if(isEscapeKey) {
-    closePhotoModal();
+const onCloseButton = (evt) => {
+  closePhotoModal(evt);
+};
+
+const onPhotoModalKeyDown = (evt) => {
+  if(isEscapeKey(evt)) {
+    closePhotoModal(evt);
   }
 };
 
@@ -46,7 +53,7 @@ const openPhotoModal = (element) => {
 
   createPhotoModal(element);
 
-  closeModalButton.addEventListener('click', closePhotoModal);
+  closeModalButton.addEventListener('click', onCloseButton);
   document.addEventListener('keydown', onPhotoModalKeyDown);
 };
 

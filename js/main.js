@@ -1,8 +1,8 @@
 import './data.js';
 import './util.js';
 import './previews.js';
-import './modal.js';
-import './forms.js';
+import './photo-modal.js';
+import './form-modal.js';
 import './scale.js';
 import {PHOTO_AMOUNT, createPhotos} from './data.js';
 import {createPreviews} from './previews.js';

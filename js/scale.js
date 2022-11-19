@@ -5,39 +5,30 @@ const SCALE_OPTIONS = {
   mах: 100,
   step: 25,
   value: 100
-}
+};
 
 const scaleControl = document.querySelector('.scale');
 const scaleButtonMinus = scaleControl.querySelector('.scale__control--smaller');
 const scaleButtonPlus = scaleControl.querySelector('.scale__control--bigger');
 const scaleInput = scaleControl.querySelector('.scale__control--value');
 
-const getScaleValue = (photo) => {
-  scaleInput.value = options.value + '%';
-  photo.style.transform = `scale(${SCALE_OPTIONS.value / 100})`;
+const getScaleValue = (photo, options) => {
+  scaleInput.value = `${options.value}%`;
+  photo.style.transform = `scale(${options.value / 100})`;
 };
 
-const onMinusButtonClick = (evt, options) => {
+const onScaleButtonClick = (evt, options, operation, photo) => {
   evt.preventDefault();
-  toggleNumberRange(options, '-');
-  getScaleValue();
-}
-
-const onPlusButtonClick = (evt, options) => {
-  evt.preventDefault();
-  toggleNumberRange(options, '+');
-  getScaleValue();
-}
-
-const changeScale = (options) => {
-  scaleButtonMinus.addEventListener('click', (evt) => onMinusButtonClick(evt, options));
-  scaleButtonPlus.addEventListener('click', (evt) => onPlusButtonClick(evt, options));
+  toggleNumberRange(options, operation);
+  getScaleValue(photo, options);
 };
 
-const renderScale = (photo) => {
-  changeScale(SCALE_OPTIONS);
+const changeScale = (photo, options) => {
+  scaleButtonMinus.addEventListener('click', (evt) => onScaleButtonClick(evt, options, '-', photo));
+  scaleButtonPlus.addEventListener('click', (evt) => onScaleButtonClick(evt, options, '+', photo));
 };
 
-renderScale(document.querySelector('.img-upload__preview img'));
-  
-export {renderScale}
+
+changeScale(document.querySelector('.img-upload__preview img'), SCALE_OPTIONS);
+
+export {changeScale, SCALE_OPTIONS};

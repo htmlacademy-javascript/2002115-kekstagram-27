@@ -15,7 +15,7 @@ const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const toggleNumberRange = (options, operation) => {
-  let delta = operation === '-' ? options.value - options.step : options.value + options.step;
+  const delta = operation === '-' ? options.value - options.step : options.value + options.step;
   options.value = delta >= options.min && delta <= options.mах ? delta : options.value;
   return options;
 };
