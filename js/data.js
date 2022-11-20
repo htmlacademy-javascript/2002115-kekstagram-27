@@ -1,7 +1,7 @@
 import {getRandomInt, getRandomElement} from './util.js';
 
 const PHOTO_AMOUNT = 25;
-const RANGE = 3;
+const RANGE = 13;
 const COMMENT_AMOUNT = PHOTO_AMOUNT * RANGE;
 const AVATAR_ID_START = 1;
 const AVATAR_ID_END = 6;
@@ -71,15 +71,11 @@ const TEXT = [
 
 const getCommentIdList = (amount) => {
   const commentIdList = [];
+  let number = 0;
 
   for(let i = 0; i < amount; i++) {
-    let idListElement = Math.ceil(Math.random() * 100);
-
-    while(commentIdList.includes(idListElement)) {
-      idListElement = Math.ceil(Math.random() * 100);
-    }
-
-    commentIdList.push(idListElement);
+    number++;
+    commentIdList.push(number);
   }
 
   return commentIdList;
@@ -89,14 +85,17 @@ const commentId = getCommentIdList(COMMENT_AMOUNT);
 
 const createComments = (amount) => {
   const comments = [];
+  let messageNummber = 0;
 
   for(let i = 0; i < amount; i++) {
     comments.push({
       id: commentId[i],
       avatar: `img/avatar-${getRandomInt(AVATAR_ID_START, AVATAR_ID_END)}.svg`,
-      message: getRandomElement(MESSAGES),
+      message: MESSAGES[messageNummber],
       name: `${getRandomElement(FIRST_NAMES)} ${getRandomElement(LAST_NAMES)}`
     });
+
+    messageNummber = messageNummber >= MESSAGES.length - 1 ? 0 : ++messageNummber;
   }
 
   return comments;
