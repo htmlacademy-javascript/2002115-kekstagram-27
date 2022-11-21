@@ -17,7 +17,7 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 const toggleNumberRange = (options, operation) => {
   const {value, step, min, mах} = options;
   const delta = operation === '-' ? value - step : value + step;
-  value = delta >= min && delta <= mах ? delta : value;
+  options.value = delta >= min && delta <= mах ? delta : value;
   return options;
 };
 
