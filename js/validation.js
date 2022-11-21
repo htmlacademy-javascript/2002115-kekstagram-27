@@ -1,7 +1,15 @@
-import {checkRepeats} from './util.js';
+import {checkRepeats, checkMaxLength} from './util.js';
 
 const HASHTAG_MAX_AMOUNT = 5;
-const HASHTAG_RULES = '- должен начинаться с символа # (решётка);<br>- может состоять из букв и чисел;<br>- не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;<br> - не может состоять только из одной решётки;<br>- максимальная длина одного хэш-тега 20 символов, включая решётку;<br>- нельзя указать больше 5 хэш-тегов;<br>- хэш-теги должны разделяться пробелами;<br>';
+const HASHTAG_MAX_LENGTH = 20;
+const HASHTAG_REGEX = /^#[a-zа-яё0-9]{0,20}$/i;
+const HASHTAG_RULES = {
+  hasHash: 'Хэштег должен начинаться с # и состоять из букв и чисел',
+  hashtagLength: `Длина хэштега меньше ${HASHTAG_MAX_LENGTH} символов`,
+  maxAmount: `Максимум ${HASHTAG_MAX_AMOUNT} хэштегов`,
+  noRepeat: 'Хэштеги не могут повторяться',
+};
+
 const uploadFrom = document.querySelector('#upload-select-image');
 const hashtagInput = uploadFrom.querySelector('[name="hashtags"]');
 
@@ -12,23 +20,19 @@ const pristine = new Pristine (uploadFrom, {
   errorTextClass: 'img-upload__error-text',
 });
 
-const createHashtagArray = (value) => value.trim().split(' ');
-
-const testRegExp = (hashtagsArray) => {
-  const regexp = /^#[a-zа-яё0-9]{1,20}$/i;
-  return hashtagsArray.every((hashtag) => regexp.test(hashtag));
+const validateHashtagSymbols = () => {
+  if (hashtagInput.value !== '') {
+    return hashtagInput.value.split(' ').every((hashtag) => HASHTAG_REGEX.test(hashtag));
+  }
 };
+const validateHashtagMaxLength = () => hashtagInput.value.split(' ').every((hashtag) => checkMaxLength(hashtag, HASHTAG_MAX_LENGTH));
+const validateHashtagsQuantity = () => checkMaxLength(hashtagInput.value.split(' '), HASHTAG_MAX_AMOUNT);
+const validateHashtagValuesRepeat = () => checkRepeats(hashtagInput.value.split(' '));
 
-const validateHashtags = (value) => {
-  const hashtagsArray = createHashtagArray(value);
-  const isLong = hashtagsArray.length <= HASHTAG_MAX_AMOUNT;
-  const isRepeat = checkRepeats(hashtagsArray);
-  const isHashtagsValid = testRegExp(hashtagsArray);
-
-  return isLong && isRepeat && isHashtagsValid;
-};
-
-pristine.addValidator(hashtagInput, validateHashtags, HASHTAG_RULES);
+pristine.addValidator(hashtagInput, validateHashtagSymbols, HASHTAG_RULES.hasHash);
+pristine.addValidator(hashtagInput, validateHashtagMaxLength, HASHTAG_RULES.hashtagLength);
+pristine.addValidator(hashtagInput, validateHashtagsQuantity, HASHTAG_RULES.maxAmount);
+pristine.addValidator(hashtagInput, validateHashtagValuesRepeat, HASHTAG_RULES.noRepeat);
 
 const validate = (evt) => {
   evt.preventDefault();
