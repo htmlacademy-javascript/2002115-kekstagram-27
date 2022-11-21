@@ -2,7 +2,6 @@ import {isEscapeKey} from './util.js';
 import {getScaleValue, changeScale, SCALE_OPTIONS} from './scale.js';
 import {validate} from './validation.js';
 
-//Подготовка
 const uploadControl = document.querySelector('#upload-file');
 const formModal = document.querySelector('.img-upload__overlay');
 const uploadFrom = document.querySelector('#upload-select-image');
@@ -11,8 +10,6 @@ const commentInput = formModal.querySelector('[name="description"]');
 const closeFormButton = formModal.querySelector('#upload-cancel');
 const imagePreview = document.querySelector('.img-upload__preview img');
 
-//Отрисовать форму редактирования изображения
-// Зарытие модального окна
 const stopEscPropagation = (element) => {
   element.addEventListener('keydown', (evt) =>{
     if(isEscapeKey(evt)) {
@@ -46,7 +43,6 @@ const onFormKeyDown = (evt) => {
   }
 };
 
-// Открытие модального окна
 const openEditForm = () => {
   formModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -59,7 +55,6 @@ const openEditForm = () => {
   commentInput.addEventListener('focus', stopEscPropagation(commentInput));
 };
 
-//Загрузить форму редактирования после выбора изображения
 uploadControl.addEventListener('change', () => {
   openEditForm();
 });
