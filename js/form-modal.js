@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {getScaleValue, changeScale, SCALE_OPTIONS} from './scale.js';
+import {loadPictureEffectsControl, cleanEffect} from './effects.js';
 import {validate} from './validation.js';
 
 const uploadControl = document.querySelector('#upload-file');
@@ -31,6 +32,7 @@ const closeEditFrom = (evt) => {
   hashtagInput.removeEventListener('focus', stopEscPropagation(hashtagInput));
   commentInput.removeEventListener('focus', stopEscPropagation(commentInput));
   getScaleValue(imagePreview, SCALE_OPTIONS);
+  cleanEffect();
 };
 
 const onCloseButtonClick = (evt) => {
@@ -47,6 +49,7 @@ const openEditForm = () => {
   formModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
   changeScale(imagePreview, Object.assign({}, SCALE_OPTIONS));
+  loadPictureEffectsControl();
 
   document.addEventListener('keydown', onFormKeyDown);
   closeFormButton.addEventListener('click', onCloseButtonClick);

@@ -36,7 +36,13 @@ pristine.addValidator(hashtagInput, validateHashtagValuesRepeat, HASHTAG_RULES.n
 
 const validate = (evt) => {
   evt.preventDefault();
-  pristine.validate();
+
+  const isValid = pristine.validate();
+  const form = evt.target;
+
+  if (isValid) {
+    form.submit();
+  }
 };
 
 export {validate};
