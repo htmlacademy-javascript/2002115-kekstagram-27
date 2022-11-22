@@ -1,3 +1,19 @@
+const ALERT_SHOW_TIME = 8000;
+
+const ALERT_STYLE_OPTIONS = {
+  zIndex : '100',
+  position : 'absolute',
+  left : '0',
+  top : '0',
+  right : '0',
+  padding : '10px 3px',
+  fontSize : '30px',
+  lineHeight : '36px',
+  textAlign : 'center',
+  backgroundColor : '#232321',
+  border : '3px solid red'
+};
+
 const getRandomInt = (a, b) => {
   if (a >= 0 && b >= 0) {
     const min = Math.min(a, b);
@@ -24,6 +40,22 @@ const toggleNumberRange = (options, operation) => {
 const checkRepeats = (array) => {
   const arrayNoRepeats = new Set(array);
   return arrayNoRepeats.size === array.length;
+};
+
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+
+  for (let option in ALERT_STYLE_OPTIONS) {
+    alertContainer.style.option = Object.ValueOf(option);
+  }
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
 };
 
 export {getRandomInt, checkMaxLength, getRandomElement, isEscapeKey, toggleNumberRange, checkRepeats};
