@@ -28,7 +28,4 @@ const changeScale = (photo, options) => {
   scaleButtonPlus.addEventListener('click', (evt) => onScaleButtonClick(evt, options, '+', photo));
 };
 
-
-changeScale(document.querySelector('.img-upload__preview img'), SCALE_OPTIONS);
-
-export {changeScale, SCALE_OPTIONS};
+export {getScaleValue, changeScale, SCALE_OPTIONS};

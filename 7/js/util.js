@@ -8,27 +8,22 @@ const getRandomInt = (a, b) => {
   return NaN;
 };
 
-const checkStringLength = (string, maxLength) => string.length <= maxLength;
+const checkMaxLength = (array, maxLength) => array.length <= maxLength;
 
 const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const toggleNumberRange = (options, operation) => {
-  const delta = operation === '-' ? options.value - options.step : options.value + options.step;
-  options.value = delta >= options.min && delta <= options.mах ? delta : options.value;
+  const {value, step, min, mах} = options;
+  const delta = operation === '-' ? value - step : value + step;
+  options.value = delta >= min && delta <= mах ? delta : value;
   return options;
 };
 
 const checkRepeats = (array) => {
-  for (let i = 0; i < array.length; i++) {
-    for (let j = i + 1; j < array.length; j++) {
-      if(array[j] === array[i]) {
-        return false;
-      }
-    }
-  }
-  return true;
+  const arrayNoRepeats = new Set(array);
+  return arrayNoRepeats.size === array.length;
 };
 
-export {getRandomInt, checkStringLength, getRandomElement, isEscapeKey, toggleNumberRange, checkRepeats};
+export {getRandomInt, checkMaxLength, getRandomElement, isEscapeKey, toggleNumberRange, checkRepeats};

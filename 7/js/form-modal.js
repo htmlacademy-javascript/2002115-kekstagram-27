@@ -1,17 +1,16 @@
 import {isEscapeKey} from './util.js';
-import {changeScale, SCALE_OPTIONS} from './scale.js';
+import {getScaleValue, changeScale, SCALE_OPTIONS} from './scale.js';
+import {loadPictureEffectsControl, cleanEffect} from './effects.js';
 import {validate} from './validation.js';
 
-//Подготовка
 const uploadControl = document.querySelector('#upload-file');
 const formModal = document.querySelector('.img-upload__overlay');
 const uploadFrom = document.querySelector('#upload-select-image');
 const hashtagInput = formModal.querySelector('[name="hashtags"]');
 const commentInput = formModal.querySelector('[name="description"]');
 const closeFormButton = formModal.querySelector('#upload-cancel');
+const imagePreview = document.querySelector('.img-upload__preview img');
 
-//Отрисовать форму редактирования изображения
-// Зарытие модального окна
 const stopEscPropagation = (element) => {
   element.addEventListener('keydown', (evt) =>{
     if(isEscapeKey(evt)) {
@@ -32,6 +31,8 @@ const closeEditFrom = (evt) => {
   formModal.removeEventListener('submit', validate);
   hashtagInput.removeEventListener('focus', stopEscPropagation(hashtagInput));
   commentInput.removeEventListener('focus', stopEscPropagation(commentInput));
+  getScaleValue(imagePreview, SCALE_OPTIONS);
+  cleanEffect();
 };
 
 const onCloseButtonClick = (evt) => {
@@ -44,11 +45,11 @@ const onFormKeyDown = (evt) => {
   }
 };
 
-// Открытие модального окна
 const openEditForm = () => {
   formModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  changeScale(SCALE_OPTIONS);
+  changeScale(imagePreview, Object.assign({}, SCALE_OPTIONS));
+  loadPictureEffectsControl();
 
   document.addEventListener('keydown', onFormKeyDown);
   closeFormButton.addEventListener('click', onCloseButtonClick);
@@ -57,7 +58,6 @@ const openEditForm = () => {
   commentInput.addEventListener('focus', stopEscPropagation(commentInput));
 };
 
-//Загрузить форму редактирования после выбора изображения
 uploadControl.addEventListener('change', () => {
   openEditForm();
 });
