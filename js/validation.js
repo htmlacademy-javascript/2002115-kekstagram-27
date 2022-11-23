@@ -24,6 +24,8 @@ const validateHashtagSymbols = () => {
   if (hashtagInput.value !== '') {
     return hashtagInput.value.split(' ').every((hashtag) => HASHTAG_REGEX.test(hashtag));
   }
+
+  return true;
 };
 const validateHashtagMaxLength = () => hashtagInput.value.split(' ').every((hashtag) => checkMaxLength(hashtag, HASHTAG_MAX_LENGTH));
 const validateHashtagsQuantity = () => checkMaxLength(hashtagInput.value.split(' '), HASHTAG_MAX_AMOUNT);
@@ -34,16 +36,6 @@ pristine.addValidator(hashtagInput, validateHashtagMaxLength, HASHTAG_RULES.hash
 pristine.addValidator(hashtagInput, validateHashtagsQuantity, HASHTAG_RULES.maxAmount);
 pristine.addValidator(hashtagInput, validateHashtagValuesRepeat, HASHTAG_RULES.noRepeat);
 
-const validate = (evt) => {
-  evt.preventDefault();
-
-  const isValid = pristine.validate();
-  const form = evt.target;
-
-  if (isValid) {
-    form.submit();
-  }
-};
+const validate = () => pristine.validate();
 
 export {validate};
-

@@ -30,11 +30,9 @@ const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const toggleNumberRange = (options, operation) => {
-  const {value, step, min, mах} = options;
+const toggleNumberRange = ({value, step, min, max}, operation) => {
   const delta = operation === '-' ? value - step : value + step;
-  options.value = delta >= min && delta <= mах ? delta : value;
-  return options;
+  return delta >= min && delta <= max ? delta : value;
 };
 
 const checkRepeats = (array) => {
@@ -44,13 +42,8 @@ const checkRepeats = (array) => {
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-
-  for (let option in ALERT_STYLE_OPTIONS) {
-    alertContainer.style.option = Object.ValueOf(option);
-  }
-
+  Object.assign(alertContainer.style, ALERT_STYLE_OPTIONS);
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {
@@ -58,4 +51,26 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomInt, checkMaxLength, getRandomElement, isEscapeKey, toggleNumberRange, checkRepeats};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+function throttle (callback, delayBetweenFrames) {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
+
+export {getRandomInt, checkMaxLength, getRandomElement, isEscapeKey, toggleNumberRange, checkRepeats, showAlert, debounce, throttle};

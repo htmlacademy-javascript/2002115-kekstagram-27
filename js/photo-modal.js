@@ -34,9 +34,7 @@ const checkCommentsRest = (comments) => {
   return comments.slice(COMMENTS_STEP);
 };
 
-const countComments = (tagName, element) => {
-  const currentAmount = photoModal.querySelectorAll(tagName).length;
-  const totalAmount = element.comments.length;
+const countComments = (currentAmount, totalAmount) => {
   commentsCounter.textContent = `${currentAmount} из ${totalAmount} комментариев`;
 };
 
@@ -50,11 +48,8 @@ const closePhotoModal = (evt) => {
   evt.preventDefault();
   photoModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('keydown', onPhotoModalKeyDown);
-  // eslint-disable-next-line no-use-before-define
-  closeModalButton.removeEventListener('click', onCloseButton);
   commentsLoaderButton.classList.remove('hidden');
+  removeListeners();
 };
 
 const onCloseButton = (evt) => {
@@ -67,24 +62,34 @@ const onPhotoModalKeyDown = (evt) => {
   }
 };
 
+function removeListeners () {
+  document.removeEventListener('keydown', onPhotoModalKeyDown);
+  closeModalButton.removeEventListener('click', onCloseButton);
+}
+
+function addListeners () {
+  closeModalButton.addEventListener('click', onCloseButton);
+  document.addEventListener('keydown', onPhotoModalKeyDown);
+}
+
 const openPhotoModal = (element) => {
   photoModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   let commentsRest = [];
+  const totalAmout = element.comments.length;
   socialCommentsList.innerHTML = '';
 
   createPhotoModal(element);
   commentsRest = checkCommentsRest(element.comments);
-  countComments('li', element);
+  countComments(totalAmout - commentsRest.length, totalAmout);
 
   commentsLoaderButton.addEventListener('click', () => {
     commentsRest = checkCommentsRest(commentsRest);
-    countComments('li', element);
+    countComments(totalAmout - commentsRest.length, totalAmout);
   });
 
-  closeModalButton.addEventListener('click', onCloseButton);
-  document.addEventListener('keydown', onPhotoModalKeyDown);
+  addListeners();
 };
 
 export {openPhotoModal};

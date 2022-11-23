@@ -2,7 +2,7 @@ import {toggleNumberRange} from './util.js';
 
 const SCALE_OPTIONS = {
   min: 25,
-  mах: 100,
+  max: 100,
   step: 25,
   value: 100
 };
@@ -12,20 +12,22 @@ const scaleButtonMinus = scaleControl.querySelector('.scale__control--smaller');
 const scaleButtonPlus = scaleControl.querySelector('.scale__control--bigger');
 const scaleInput = scaleControl.querySelector('.scale__control--value');
 
-const getScaleValue = (photo, options) => {
-  scaleInput.value = `${options.value}%`;
-  photo.style.transform = `scale(${options.value / 100})`;
+const setScaleValue = (photo, value) => {
+  scaleInput.value = `${value}%`;
+  photo.style.transform = `scale(${value / 100})`;
 };
 
 const onScaleButtonClick = (evt, options, operation, photo) => {
   evt.preventDefault();
-  toggleNumberRange(options, operation);
-  getScaleValue(photo, options);
+  options.value = toggleNumberRange(options, operation);
+  setScaleValue(photo, options.value);
 };
 
 const changeScale = (photo, options) => {
-  scaleButtonMinus.addEventListener('click', (evt) => onScaleButtonClick(evt, options, '-', photo));
-  scaleButtonPlus.addEventListener('click', (evt) => onScaleButtonClick(evt, options, '+', photo));
+  const newOptions = Object.assign({}, options);
+
+  scaleButtonMinus.addEventListener('click', (evt) => onScaleButtonClick(evt, newOptions, '-', photo));
+  scaleButtonPlus.addEventListener('click', (evt) => onScaleButtonClick(evt, newOptions, '+', photo));
 };
 
-export {getScaleValue, changeScale, SCALE_OPTIONS};
+export {setScaleValue, changeScale, SCALE_OPTIONS};
