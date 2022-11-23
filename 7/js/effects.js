@@ -49,6 +49,7 @@ const formModal = document.querySelector('.img-upload__overlay');
 const allEffects = formModal.querySelectorAll('.effects__radio');
 const picturePreview = formModal.querySelector('.img-upload__preview img');
 const effectLevelSlider = formModal.querySelector('.effect-level__slider');
+const effectLevelSliderParent = formModal.querySelector('.img-upload__effect-level');
 const effectLevelValue = formModal.querySelector('.effect-level__value');
 
 const createSlider = () => {
@@ -75,11 +76,12 @@ const createSlider = () => {
 };
 
 const hideSlider = (element) => {
-  effectLevelSlider.classList.add('hidden');
+  effectLevelSliderParent.classList.add('hidden');
   element.value = 'none';
 };
 
 const showSlider = () => {
+  effectLevelSliderParent.classList.remove('hidden');
   effectLevelSlider.classList.remove('hidden');
 };
 
@@ -136,7 +138,7 @@ const changeEffect = () => {
   });
 };
 
-const cleanEffect = () => {
+const clearEffect = () => {
   if(effectLevelSlider.noUiSlider) {
     effectLevelSlider.noUiSlider.destroy();
   }
@@ -151,4 +153,4 @@ const loadPictureEffectsControl = () => {
   hideSlider(allEffects.item(0));
 };
 
-export {loadPictureEffectsControl, cleanEffect};
+export {loadPictureEffectsControl, clearEffect};
