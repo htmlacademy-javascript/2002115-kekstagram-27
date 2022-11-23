@@ -73,23 +73,24 @@ function addListeners () {
 }
 
 const openPhotoModal = (element) => {
-  photoModal.classList.remove('hidden');
-  document.body.classList.add('modal-open');
 
   let commentsRest = [];
-  const totalAmout = element.comments.length;
+  const totalAmount = element.comments.length;
   socialCommentsList.innerHTML = '';
 
   createPhotoModal(element);
   commentsRest = checkCommentsRest(element.comments);
-  countComments(totalAmout - commentsRest.length, totalAmout);
+  countComments(totalAmount - commentsRest.length, totalAmount);
 
   commentsLoaderButton.addEventListener('click', () => {
     commentsRest = checkCommentsRest(commentsRest);
-    countComments(totalAmout - commentsRest.length, totalAmout);
+    countComments(totalAmount - commentsRest.length, totalAmount);
   });
 
   addListeners();
+
+  photoModal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
 };
 
 export {openPhotoModal};

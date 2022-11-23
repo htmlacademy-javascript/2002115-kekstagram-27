@@ -20,14 +20,14 @@ const pristine = new Pristine (uploadFrom, {
   errorTextClass: 'img-upload__error-text',
 });
 
-const validateHashtagSymbols = () => {
-  if (hashtagInput.value !== '') {
-    return hashtagInput.value.split(' ').every((hashtag) => HASHTAG_REGEX.test(hashtag));
+const validateHashtagSymbols = (value) => {
+  if (value !== '') {
+    return value.trim().split(' ').every((hashtag) => HASHTAG_REGEX.test(hashtag));
   }
 
   return true;
 };
-const validateHashtagMaxLength = () => hashtagInput.value.split(' ').every((hashtag) => checkMaxLength(hashtag, HASHTAG_MAX_LENGTH));
+const validateHashtagMaxLength = (value) => value.split(' ').every((hashtag) => checkMaxLength(hashtag, HASHTAG_MAX_LENGTH));
 const validateHashtagsQuantity = () => checkMaxLength(hashtagInput.value.split(' '), HASHTAG_MAX_AMOUNT);
 const validateHashtagValuesRepeat = () => checkRepeats(hashtagInput.value.split(' '));
 

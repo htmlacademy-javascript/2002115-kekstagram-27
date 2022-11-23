@@ -10,7 +10,7 @@ import './photo-load.js';
 import {renderPreviews} from './previews.js';
 import {getData} from './api.js';
 import {showAlert, debounce} from './util.js';
-import {closeEditFrom, setEditFormSubmit} from './form-modal.js';
+import {closeEditForm, setEditFormSubmit} from './form-modal.js';
 import {showFilter, changeFilter} from './filter.js';
 
 const RENDER_DELAY = 500;
@@ -25,4 +25,4 @@ getData(
     ));
   }, showAlert);
 
-setEditFormSubmit(closeEditFrom);
+setEditFormSubmit(closeEditForm);

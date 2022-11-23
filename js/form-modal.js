@@ -9,7 +9,7 @@ const uploadControl = document.querySelector('#upload-file');
 const formModal = document.querySelector('.img-upload__overlay');
 const hashtagInput = formModal.querySelector('[name="hashtags"]');
 const commentInput = formModal.querySelector('[name="description"]');
-const uploadFrom = document.querySelector('#upload-select-image');
+const uploadForm = document.querySelector('#upload-select-image');
 const closeFormButton = formModal.querySelector('#upload-cancel');
 const imagePreview = document.querySelector('.img-upload__preview img');
 const submitButton = document.querySelector('.img-upload__submit');
@@ -32,7 +32,7 @@ const clearInputs = () => {
   commentInput.value = '';
 };
 
-const closeEditFrom = () => {
+const closeEditForm = () => {
   formModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   clearInputs();
@@ -42,13 +42,13 @@ const closeEditFrom = () => {
 };
 
 const onCloseButtonClick = (evt) => {
-  closeEditFrom(evt);
+  closeEditForm(evt);
 };
 
 const onFormKeyDown = (evt) => {
   if(isEscapeKey(evt) && !checkTypeMessage()) {
     evt.preventDefault();
-    closeEditFrom(evt);
+    closeEditForm(evt);
   }
 };
 
@@ -66,30 +66,26 @@ function addListeners () {
   commentInput.addEventListener('focus', stopEscPropagation(commentInput));
 }
 
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
+const blockSubmitButton = (inactive) => {
+  submitButton.disabled = inactive;
 };
 
 const setEditFormSubmit = (onSuccess) => {
-  uploadFrom.addEventListener('submit', (evt) => {
+  uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = validate();
 
     if (isValid) {
-      blockSubmitButton();
+      blockSubmitButton(true);
       sendData(
         () => {
           onSuccess();
-          unblockSubmitButton();
+          blockSubmitButton(false);
           openMessage(SUCCESS_TYPE_MESSAGE);
         },
         () => {
-          unblockSubmitButton();
+          blockSubmitButton(false);
           openMessage(ERROR_TYPE_MESSAGE);
         },
         new FormData(evt.target),
@@ -110,4 +106,4 @@ uploadControl.addEventListener('change', () => {
   openEditForm();
 });
 
-export {closeEditFrom, setEditFormSubmit};
+export {closeEditForm, setEditFormSubmit};
