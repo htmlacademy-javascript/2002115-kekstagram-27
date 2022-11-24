@@ -52,7 +52,7 @@ const closePhotoModal = (evt) => {
   removeListeners();
 };
 
-const onCloseButton = (evt) => {
+const onCloseButtonClick = (evt) => {
   closePhotoModal(evt);
 };
 
@@ -63,14 +63,14 @@ const onPhotoModalKeyDown = (evt) => {
 };
 
 function removeListeners () {
+  closeModalButton.removeEventListener('click', onCloseButtonClick);
   document.removeEventListener('keydown', onPhotoModalKeyDown);
-  closeModalButton.removeEventListener('click', onCloseButton);
 }
 
-function addListeners () {
-  closeModalButton.addEventListener('click', onCloseButton);
+const addListeners = () => {
+  closeModalButton.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onPhotoModalKeyDown);
-}
+};
 
 const openPhotoModal = (element) => {
 

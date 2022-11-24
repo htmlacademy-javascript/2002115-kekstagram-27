@@ -18,7 +18,7 @@ const SUCCESS_TYPE_MESSAGE = 'success';
 const ERROR_TYPE_MESSAGE = 'error';
 
 
-const stopEscPropagation = (element) => {
+const onInputEscKeydown = (element) => {
   element.addEventListener('keydown', (evt) =>{
     if(isEscapeKey(evt)) {
       evt.stopPropagation();
@@ -55,16 +55,16 @@ const onFormKeyDown = (evt) => {
 function removeListeners () {
   document.removeEventListener('keydown', onFormKeyDown);
   closeFormButton.removeEventListener('click', onCloseButtonClick);
-  hashtagInput.removeEventListener('focus', stopEscPropagation(hashtagInput));
-  commentInput.removeEventListener('focus', stopEscPropagation(commentInput));
+  hashtagInput.removeEventListener('focus', onInputEscKeydown(hashtagInput));
+  commentInput.removeEventListener('focus', onInputEscKeydown(commentInput));
 }
 
-function addListeners () {
+const addListeners = () => {
   document.addEventListener('keydown', onFormKeyDown);
   closeFormButton.addEventListener('click', onCloseButtonClick);
-  hashtagInput.addEventListener('focus', stopEscPropagation(hashtagInput));
-  commentInput.addEventListener('focus', stopEscPropagation(commentInput));
-}
+  hashtagInput.addEventListener('focus', onInputEscKeydown(hashtagInput));
+  commentInput.addEventListener('focus', onInputEscKeydown(commentInput));
+};
 
 const blockSubmitButton = (inactive) => {
   submitButton.disabled = inactive;
