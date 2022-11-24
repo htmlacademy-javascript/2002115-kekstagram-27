@@ -6,28 +6,28 @@ const errorMessageTemplate = document.querySelector('#error').content.querySelec
 const checkTypeMessage = () => document.querySelector('.success, .error');
 
 const closeMessage = () => {
+  document.removeEventListener('keydown', onMessageEscapeKeydown);
+  document.removeEventListener('click', onMessageOutsideClick);
   const messageElement = checkTypeMessage();
   if (messageElement) {
     messageElement.remove();
   }
 };
 
-const onMessageEscapeKeydown = (evt) => {
+function onMessageEscapeKeydown (evt) {
   if (isEscapeKey(evt) && checkTypeMessage()) {
     evt.preventDefault();
-    document.removeEventListener('keydown', onMessageEscapeKeydown);
     closeMessage();
   }
-};
+}
 
-const onOutsideMessage = (evt) => {
+function onMessageOutsideClick (evt) {
   const messageElement = checkTypeMessage();
 
   if (messageElement && messageElement.contains(evt.target)) {
-    document.removeEventListener('click', onOutsideMessage);
     closeMessage();
   }
-};
+}
 
 const openMessage = (typeMessage) => {
   const message = typeMessage === 'success' ? successMessageTemplate.cloneNode(true) : errorMessageTemplate.cloneNode(true);
@@ -39,7 +39,7 @@ const openMessage = (typeMessage) => {
   });
 
   document.addEventListener('keydown', onMessageEscapeKeydown);
-  document.addEventListener('click', onOutsideMessage);
+  document.addEventListener('click', onMessageOutsideClick);
 };
 
 export {checkTypeMessage, openMessage};

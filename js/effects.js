@@ -44,6 +44,7 @@ const EFFECTS_PARAMS = {
 };
 
 const DEFAULT_EFFECT = 'none';
+const EFFECT_DEFAULT_VALUE = 100;
 
 const formModal = document.querySelector('.img-upload__overlay');
 const allEffects = formModal.querySelectorAll('.effects__radio');
@@ -58,7 +59,7 @@ const createSlider = () => {
       min: EFFECTS_PARAMS.none.min,
       max: EFFECTS_PARAMS.none.max,
     },
-    start: 100,
+    start: EFFECT_DEFAULT_VALUE,
     step: EFFECTS_PARAMS.none.step,
     connect: 'lower',
     format: {
@@ -95,7 +96,7 @@ const updateSlider = (effect) => {
       min: EFFECTS_PARAMS[effect].min,
       max: EFFECTS_PARAMS[effect].max,
     },
-    start: 100,
+    start: EFFECT_DEFAULT_VALUE,
     step: EFFECTS_PARAMS[effect].step,
   });
 };
